@@ -43,33 +43,23 @@ export const WordDisplay: React.FC<WordDisplayProps> = ({ word }) => {
     if (wordChanged) {
       previousWordRef.current = word.word;
 
-      // Apply pre-calculated offsets instantly (no measurement, no calculation)
-      // Direct style manipulation is faster than React state updates
-      if (preprocessedWord.beforeOffset !== undefined && preprocessedWord.afterOffset !== undefined) {
-        if (visibleBeforeRef.current !== null) {
-          visibleBeforeRef.current.style.transform = `translateX(${preprocessedWord.beforeOffset}px)`;
-        }
-        if (visibleAfterRef.current !== null) {
-          visibleAfterRef.current.style.transform = `translateX(${preprocessedWord.afterOffset}px)`;
-        }
-      }
-
       // Update text content directly via DOM (instant, no React re-render)
       // Use preprocessed data - it's already split and ready
+      // Offsets are now handled via CSS em units that scale automatically with font size
       updateTextContent(
         preprocessedWord.beforeText ?? '',
         preprocessedWord.anchorChar ?? '',
         preprocessedWord.afterText ?? ''
       );
     }
-  }, [word.word, preprocessedWord.beforeText, preprocessedWord.anchorChar, preprocessedWord.afterText, preprocessedWord.beforeOffset, preprocessedWord.afterOffset]);
+  }, [word.word, preprocessedWord.beforeText, preprocessedWord.anchorChar, preprocessedWord.afterText]);
 
   const baseStyle: React.CSSProperties = {
     fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-    fontSize: '8rem',
+    fontSize: 'clamp(3rem, 8vw, 8rem)', // Responsive: scales from 3rem on mobile to 8rem on desktop
     fontWeight: 600,
     lineHeight: '1.2',
-    height: '9.6rem',
+    height: 'clamp(3.6rem, 9.6vw, 9.6rem)', // Responsive height
     display: 'flex',
     alignItems: 'center',
     fontFeatureSettings: 'normal',
@@ -99,15 +89,19 @@ export const WordDisplay: React.FC<WordDisplayProps> = ({ word }) => {
     transform: 'translateX(-50%)' // Center anchor character itself
   };
 
+  // Use em units for offset - scales automatically with font size
+  // Character width = fontSize * 0.6, offset = charWidth / 2 = fontSize * 0.3
+  // So offset should be 0.3em, which scales perfectly with any font size
+  // This is much simpler and more accurate than trying to convert pre-calculated pixels
+  const offsetEm = 0.3; // 30% of font size = half of character width (0.6 / 2)
+
   // Before text positioned to the left of center (offset applied via style in effect)
   const beforeTextStyle: React.CSSProperties = {
     ...textStyle,
     color: '#e8eaed',
     position: 'absolute',
     right: '50%',
-    transform: preprocessedWord.beforeOffset !== undefined
-      ? `translateX(${preprocessedWord.beforeOffset}px)`
-      : 'translateX(0px)',
+    transform: `translateX(-${offsetEm}em)`, // Negative offset to move left
     textAlign: 'right'
   };
 
@@ -117,16 +111,14 @@ export const WordDisplay: React.FC<WordDisplayProps> = ({ word }) => {
     color: '#e8eaed',
     position: 'absolute',
     left: '50%',
-    transform: preprocessedWord.afterOffset !== undefined
-      ? `translateX(${preprocessedWord.afterOffset}px)`
-      : 'translateX(0px)'
+    transform: `translateX(${offsetEm}em)` // Positive offset to move right
   };
 
   return (
     <div className="rounded-xl w-full h-full flex items-center justify-center" style={{
       backgroundColor: '#252b3d',
       border: '1px solid rgba(255, 255, 255, 0.08)',
-      padding: '2rem'
+      padding: 'clamp(1rem, 3vw, 2rem)' // Responsive: 1rem on mobile, 2rem on desktop
     }}>
       <div className="w-full overflow-hidden relative">
         <div className="flex justify-center">

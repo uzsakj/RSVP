@@ -35,11 +35,11 @@ export const RSVPControls: React.FC<RSVPControlsProps> = ({
         <div className="rounded-xl mb-8" style={{
             backgroundColor: '#252b3d',
             border: '1px solid rgba(255, 255, 255, 0.08)',
-            padding: '1.5rem'
+            padding: 'clamp(1rem, 3vw, 1.5rem)' // Responsive: 1rem on mobile, 1.5rem on desktop
         }}>
             {/* WPM Control */}
             <div className="mb-6">
-                <label className="block font-medium text-center" style={{ color: '#b0b3b8', marginBottom: '1.5rem', fontSize: '1.125rem' }}>
+                <label className="block font-medium text-center text-sm sm:text-base md:text-lg" style={{ color: '#b0b3b8', marginBottom: '1.5rem', fontSize: 'clamp(0.875rem, 2vw, 1.125rem)' }}>
                     Words Per Minute (WPM): <span style={{ color: '#4fc3f7' }}>{wpm}</span>
                 </label>
                 <div className="flex justify-center">
@@ -68,7 +68,7 @@ export const RSVPControls: React.FC<RSVPControlsProps> = ({
             </div>
 
             {/* Control Buttons */}
-            <div className="flex flex-wrap" style={{ margin: '1rem 0', gap: '1.25rem' }}>
+            <div className="flex flex-wrap justify-center" style={{ margin: '1rem 0', gap: '1.25rem' }}>
                 {!isPlaying && !isPaused && (
                     <button
                         onClick={onStart}
@@ -78,8 +78,11 @@ export const RSVPControls: React.FC<RSVPControlsProps> = ({
                             backgroundColor: wordsCount === 0 ? 'rgba(79, 195, 247, 0.3)' : '#4fc3f7',
                             color: '#1a1f2e',
                             fontWeight: '600',
-                            padding: '0.875rem 1.75rem',
-                            fontSize: '1rem'
+                            paddingTop: 'clamp(0.5rem, 2vw, 0.875rem)',
+                            paddingBottom: 'clamp(0.5rem, 2vw, 0.875rem)',
+                            paddingLeft: 'clamp(0.75rem, 3vw, 1.75rem)',
+                            paddingRight: 'clamp(0.75rem, 3vw, 1.75rem)',
+                            fontSize: 'clamp(0.75rem, 2vw, 1rem)'
                         }}
                         type="button"
                     >
@@ -94,8 +97,11 @@ export const RSVPControls: React.FC<RSVPControlsProps> = ({
                             backgroundColor: '#ffb74d',
                             color: '#1a1f2e',
                             fontWeight: '600',
-                            padding: '0.875rem 1.75rem',
-                            fontSize: '1rem'
+                            paddingTop: 'clamp(0.5rem, 2vw, 0.875rem)',
+                            paddingBottom: 'clamp(0.5rem, 2vw, 0.875rem)',
+                            paddingLeft: 'clamp(0.75rem, 3vw, 1.75rem)',
+                            paddingRight: 'clamp(0.75rem, 3vw, 1.75rem)',
+                            fontSize: 'clamp(0.75rem, 2vw, 1rem)'
                         }}
                         type="button"
                     >
@@ -110,8 +116,11 @@ export const RSVPControls: React.FC<RSVPControlsProps> = ({
                             backgroundColor: '#66bb6a',
                             color: '#1a1f2e',
                             fontWeight: '600',
-                            padding: '0.875rem 1.75rem',
-                            fontSize: '1rem'
+                            paddingTop: 'clamp(0.5rem, 2vw, 0.875rem)',
+                            paddingBottom: 'clamp(0.5rem, 2vw, 0.875rem)',
+                            paddingLeft: 'clamp(0.75rem, 3vw, 1.75rem)',
+                            paddingRight: 'clamp(0.75rem, 3vw, 1.75rem)',
+                            fontSize: 'clamp(0.75rem, 2vw, 1rem)'
                         }}
                         type="button"
                     >
@@ -126,8 +135,11 @@ export const RSVPControls: React.FC<RSVPControlsProps> = ({
                             backgroundColor: '#ef5350',
                             color: '#ffffff',
                             fontWeight: '600',
-                            padding: '0.875rem 1.75rem',
-                            fontSize: '1rem'
+                            paddingTop: 'clamp(0.5rem, 2vw, 0.875rem)',
+                            paddingBottom: 'clamp(0.5rem, 2vw, 0.875rem)',
+                            paddingLeft: 'clamp(0.75rem, 3vw, 1.75rem)',
+                            paddingRight: 'clamp(0.75rem, 3vw, 1.75rem)',
+                            fontSize: 'clamp(0.75rem, 2vw, 1rem)'
                         }}
                         type="button"
                     >
@@ -142,8 +154,11 @@ export const RSVPControls: React.FC<RSVPControlsProps> = ({
                         backgroundColor: 'rgba(255, 255, 255, 0.1)',
                         color: '#b0b3b8',
                         fontWeight: '600',
-                        padding: '0.875rem 1.75rem',
-                        fontSize: '1rem'
+                        paddingTop: 'clamp(0.5rem, 2vw, 0.875rem)',
+                        paddingBottom: 'clamp(0.5rem, 2vw, 0.875rem)',
+                        paddingLeft: 'clamp(0.75rem, 3vw, 1.75rem)',
+                        paddingRight: 'clamp(0.75rem, 3vw, 1.75rem)',
+                        fontSize: 'clamp(0.875rem, 2vw, 1rem)'
                     }}
                     type="button"
                 >

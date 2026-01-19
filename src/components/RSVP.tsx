@@ -81,9 +81,12 @@ const RSVP: React.FC = () => {
             const currentIndex = wordIndexRef.current;
 
             if (currentIndex >= words.length) {
-                // Reached the end
+                // Reached the end - reset to start
                 setIsPlaying(false);
                 setIsPaused(false);
+                wordIndexRef.current = 0;
+                setCurrentWordIndex(0);
+                setCurrentWord(undefined);
                 animationFrameRef.current = null;
                 return;
             }
@@ -203,17 +206,17 @@ const RSVP: React.FC = () => {
             margin: 0,
             width: '100vw',
             height: '100vh',
-            padding: '2rem'
+            padding: 'clamp(1rem, 3vw, 2rem)'
         }}>
             <div className="w-full flex flex-col flex-1 min-w-0" style={{ maxWidth: '100%' }}>
-                <h1 className="text-4xl font-bold text-center mb-8" style={{
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 md:mb-8" style={{
                     color: '#e8eaed',
                     letterSpacing: '-0.02em'
                 }}>
                     RSVP Reader
                 </h1>
 
-                <div className="flex-shrink-0" style={{ padding: '0 1.5rem' }}>
+                <div className="flex-shrink-0" style={{ padding: '0 clamp(0.75rem, 2vw, 1.5rem)' }}>
                     <TextInput
                         value={text}
                         wordCount={preprocessedWords.length}
@@ -238,7 +241,7 @@ const RSVP: React.FC = () => {
                 </div>
 
                 {/* Word Display Area */}
-                <div className="flex-1 flex items-center justify-center min-h-0" style={{ padding: '0 1.5rem' }}>
+                <div className="flex-1 flex items-center justify-center min-h-0" style={{ padding: '0 clamp(0.75rem, 2vw, 1.5rem)' }}>
                     {currentWord !== undefined && (isPlaying || isPaused) ? (
                         <WordDisplay word={currentWord} />
                     ) : (
